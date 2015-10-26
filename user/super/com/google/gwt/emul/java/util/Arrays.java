@@ -19,12 +19,27 @@ package java.util;
 import static javaemul.internal.Coercions.ensureInt;
 import static javaemul.internal.InternalPreconditions.checkArgument;
 import static javaemul.internal.InternalPreconditions.checkArraySize;
+import static javaemul.internal.InternalPreconditions.checkCriticalArrayPositionIndexes;
 import static javaemul.internal.InternalPreconditions.checkCriticalPositionIndexes;
 import static javaemul.internal.InternalPreconditions.checkElementIndex;
 import static javaemul.internal.InternalPreconditions.checkNotNull;
 import static javaemul.internal.InternalPreconditions.checkPositionIndexes;
 
 import java.io.Serializable;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.DoubleBinaryOperator;
+import java.util.function.IntBinaryOperator;
+import java.util.function.IntFunction;
+import java.util.function.IntToDoubleFunction;
+import java.util.function.IntToLongFunction;
+import java.util.function.IntUnaryOperator;
+import java.util.function.LongBinaryOperator;
+import java.util.function.UnaryOperator;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import javaemul.internal.ArrayHelper;
 import javaemul.internal.LongCompareHolder;
@@ -1078,6 +1093,42 @@ public class Arrays {
   public static <T> Spliterator<T> spliterator(T[] array, int startInclusive, int endExclusive) {
     return Spliterators.spliterator(array, startInclusive, endExclusive,
         Spliterator.IMMUTABLE | Spliterator.ORDERED);
+  }
+
+  public static DoubleStream stream(double[] array) {
+    return DoubleStream.of(array);
+  }
+
+  public static DoubleStream stream(double[] array, int startInclusive, int endExclusive) {
+    checkCriticalArrayPositionIndexes(startInclusive, endExclusive, array.length);
+    return DoubleStream.of(array).skip(startInclusive).limit(endExclusive - startInclusive);
+  }
+
+  public static IntStream stream(int[] array) {
+    return IntStream.of(array);
+  }
+
+  public static IntStream stream(int[] array, int startInclusive, int endExclusive) {
+    checkCriticalArrayPositionIndexes(startInclusive, endExclusive, array.length);
+    return IntStream.of(array).skip(startInclusive).limit(endExclusive - startInclusive);
+  }
+
+  public static LongStream stream(long[] array) {
+    return LongStream.of(array);
+  }
+
+  public static LongStream stream(long[] array, int startInclusive, int endExclusive) {
+    checkCriticalArrayPositionIndexes(startInclusive, endExclusive, array.length);
+    return LongStream.of(array).skip(startInclusive).limit(endExclusive - startInclusive);
+  }
+
+  public static <T> Stream<T> stream(T[] array) {
+    return Stream.of(array);
+  }
+
+  public static <T> Stream<T> stream(T[] array, int startInclusive, int endExclusive) {
+    checkCriticalArrayPositionIndexes(startInclusive, endExclusive, array.length);
+    return Stream.of(array).skip(startInclusive).limit(endExclusive - startInclusive);
   }
 
   public static String toString(boolean[] a) {

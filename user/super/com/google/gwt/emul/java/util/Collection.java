@@ -15,6 +15,12 @@
  */
 package java.util;
 
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+import java.util.function.*;
+import java.util.*;
+
 /**
  * General-purpose interface for storing collections of objects. <a
  * href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Collection.html">[Sun
@@ -45,6 +51,10 @@ public interface Collection<E> extends Iterable<E> {
   @Override
   Iterator<E> iterator();
 
+  default Stream<E> parallelStream() {
+    return stream();//no parallelism in gwt
+  }
+
   boolean remove(Object o);
 
   boolean removeAll(Collection<?> c);
@@ -56,6 +66,10 @@ public interface Collection<E> extends Iterable<E> {
   @Override
   default Spliterator<E> spliterator() {
     return Spliterators.spliterator(this, 0);
+  }
+
+  default Stream<E> stream() {
+    return StreamSupport.stream(spliterator(), false);
   }
 
   Object[] toArray();

@@ -15,6 +15,7 @@
  */
 package javaemul.internal;
 
+import java.lang.ArrayIndexOutOfBoundsException;
 import java.util.NoSuchElementException;
 
 /**
@@ -438,6 +439,23 @@ public final class InternalPreconditions {
     }
     if (start > end) {
       throw new IllegalArgumentException("fromIndex: " + start + " > toIndex: " + end);
+    }
+  }
+
+  /**
+   * Ensures that {@code start} and {@code end} specify a valid <i>positions</i> in an array, list
+   * or string of size {@code size}, and are in order. A position index may range from zero to
+   * {@code size}, inclusive.
+   */
+  public static void checkCriticalArrayPositionIndexes(int start, int end, int size) {
+    if (start < 0) {
+      throw new ArrayIndexOutOfBoundsException("fromIndex: " + start + " < 0");
+    }
+    if (end > size) {
+      throw new ArrayIndexOutOfBoundsException("toIndex: " + end + " > size " + size);
+    }
+    if (start > end) {
+      throw new ArrayIndexOutOfBoundsException("fromIndex: " + start + " > toIndex: " + end);
     }
   }
 

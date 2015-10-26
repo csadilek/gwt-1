@@ -16,6 +16,7 @@
 package com.google.gwt.emultest;
 
 import com.google.gwt.emultest.java8.util.ComparatorTest;
+import com.google.gwt.emultest.java8.util.ArraysTest;
 import com.google.gwt.emultest.java8.util.DoubleSummaryStatisticsTest;
 import com.google.gwt.emultest.java8.util.HashMapTest;
 import com.google.gwt.emultest.java8.util.IdentityHashMapTest;
@@ -33,6 +34,10 @@ import com.google.gwt.emultest.java8.util.SpliteratorsTest;
 import com.google.gwt.emultest.java8.util.StringJoinerTest;
 import com.google.gwt.emultest.java8.util.TreeMapTest;
 import com.google.gwt.emultest.java8.util.stream.CollectorsTest;
+import com.google.gwt.emultest.java8.util.stream.DoubleStreamTest;
+import com.google.gwt.emultest.java8.util.stream.IntStreamTest;
+import com.google.gwt.emultest.java8.util.stream.LongStreamTest;
+import com.google.gwt.emultest.java8.util.stream.StreamTest;
 import com.google.gwt.junit.tools.GWTTestSuite;
 
 import junit.framework.Test;
@@ -46,6 +51,7 @@ public class EmulJava8Suite {
     GWTTestSuite suite = new GWTTestSuite("Tests for com.google.gwt.emul.java8");
 
     //-- java.util
+    suite.addTestSuite(ArraysTest.class);
     suite.addTestSuite(ComparatorTest.class);
     suite.addTestSuite(MapTest.class);
     suite.addTestSuite(MapEntryTest.class);
@@ -66,6 +72,10 @@ public class EmulJava8Suite {
 
     //-- java.util.stream
     suite.addTestSuite(CollectorsTest.class);
+    suite.addTestSuite(DoubleStreamTest.class);
+    suite.addTestSuite(IntStreamTest.class);
+    suite.addTestSuite(LongStreamTest.class);
+    suite.addTestSuite(StreamTest.class);
 
     return suite;
   }
